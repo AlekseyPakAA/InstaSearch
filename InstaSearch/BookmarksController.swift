@@ -55,6 +55,7 @@ class BookmarksController: UICollectionViewController {
         return cell
     }
     
+
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
@@ -88,12 +89,6 @@ extension BookmarksController: BookmarksView {
     func add(item: Media) {
         items.append(item)
         collectionView?.insertItems(at: [IndexPath(row: items.count - 1, section: 0)])
-    }
-
-    func update(item: Media) {
-        if let row = items.index(of: item) {
-            collectionView?.reloadItems(at: [IndexPath(row: row, section: 0)])
-        }
     }
     
 

@@ -12,14 +12,16 @@ import RealmSwift
 protocol BookmarksPresenter {
 
     func viewDidLoad()
-    
+
 }
 
 class BookmarksPresenterImpl: BookmarksPresenter {
 
     weak var view: BookmarksView?;
-    var notificationToken: NotificationToken?
+  
     var databaseInteractor: DatabaseInteractor
+  
+    var notificationToken: NotificationToken?
     
     required init(view: BookmarksView, databaseInteractor: DatabaseInteractor) {
         self.view = view
@@ -31,9 +33,13 @@ class BookmarksPresenterImpl: BookmarksPresenter {
         
         notificationToken = result.addNotificationBlock {c in
             switch c {
-            case let .update(items, deletions: _, insertions: insertions, modifications: modifications):
-                insertions.forEach{i in self.view?.add(item: items[i])}
-                modifications.forEach{i in self.view?.update(item: items[i])}
+            case let .update(items, deletions: _, insertions: insertions, modifications: _):
+                
+                insertions.forEach{ i in
+                    items[i].saved = true
+                    self.view?.add(item: items[i])
+                }
+                
             default:
                 break
             }

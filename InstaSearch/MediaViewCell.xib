@@ -105,11 +105,11 @@
                                     <constraint firstAttribute="width" constant="24" id="gvH-Ih-rAV"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6vM-dj-qsj">
-                                <rect key="frame" x="339" y="12" width="24" height="24"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6vM-dj-qsj">
+                                <rect key="frame" x="319" y="12" width="44" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="24" id="8bJ-XU-ULe"/>
-                                    <constraint firstAttribute="height" constant="24" id="tZr-tX-tOd"/>
+                                    <constraint firstAttribute="width" constant="44" id="8bJ-XU-ULe"/>
+                                    <constraint firstAttribute="height" constant="44" id="tZr-tX-tOd"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="bookmarks_btn"/>
                             </button>

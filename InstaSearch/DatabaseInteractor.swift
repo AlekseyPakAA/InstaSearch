@@ -23,8 +23,10 @@ class DatabaseInteractor {
         return realm.object(ofType: Media.self, forPrimaryKey: id)
     }
     
-    func add(observer: (Media) -> Void) {
-        
+    func delete(media: Media) throws {
+        try! realm.write {
+            realm.delete(media)
+        }
     }
     
 }

@@ -12,6 +12,5 @@ protocol BookmarksView: class {
     //func add(items: [Media])
     func add(item: Media)
     func set(items: [Media])
-    func update(item: Media)
     
 }

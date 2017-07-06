@@ -36,8 +36,9 @@ class BookmarksPresenterImpl: BookmarksPresenter {
             case let .update(items, deletions: _, insertions: insertions, modifications: _):
                 
                 insertions.forEach{ i in
-                    items[i].saved = true
-                    self.view?.add(item: items[i])
+                    let m = items[i]
+                    m.saved = true
+                    self.view?.add(item: m)
                 }
                 
             default:

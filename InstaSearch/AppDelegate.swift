@@ -7,15 +7,35 @@
 //
 
 import UIKit
+import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    
+    var instagramAPI = InstagramAPIInteractor()
+    var databaseInteractor =  DatabaseInteractor()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        Alamofire.SessionManager.default.adapter = AccessTokenRequestAdapter()
+        
+        let rootController = window?.rootViewController as? UITabBarController
+        let navHomeController = (rootController?.viewControllers?[0] as? UINavigationController)
+        let navBookmarksController = rootController?.viewControllers?[1] as? UINavigationController
+        
+        let homeController = navHomeController?.topViewController as? HomePageController
+        let bookmarksController = navBookmarksController?.topViewController as? BookmarksController
+        
+        if let controller = homeController {
+            let presenter = HomePagePresenterImpl(view: controller, instagramAPI: instagramAPI, databaseInteractor: databaseInteractor)
+            controller.presenter = presenter
+        }
+        
+        if let controller = bookmarksController {
+            let presenter = BookmarksPresenterImpl(view: controller, databaseInteractor: databaseInteractor)
+            controller.presenter = presenter
+        }
+        
         return true
     }
 

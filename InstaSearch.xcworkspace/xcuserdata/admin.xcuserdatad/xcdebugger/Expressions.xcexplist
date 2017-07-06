@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "UsersAPI.recentMedia(userID : String, maxID : String?, (InstagramResponce&lt;Media&gt;) -&gt; ()) -&gt; ():InstagramAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "url.string()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "DateTransform.transformFromJSON(Any?) -&gt; Date?:DateTransform.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Date(timeIntervalSince1970: TimeInterval(atof(timeStr)))">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "EnumTransform.transformFromJSON(Any?) -&gt; A?:EnumTransform.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "T(rawValue: raw)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "HomePageController.addToBookmarksButtonPressed(sender : UIButton) -&gt; ():HomePageController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "                print(indexPath.row)">
+            </PersistentString>
+            <PersistentString
+               value = "collectionView.indexPathForItem(at: point)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Media.init(map : Map) throws -&gt; Media:Media.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "map.value(&quot;type&quot;)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AppDelegate.application(UIApplication, didFinishLaunchingWithOptions : [UIApplicationLaunchOptionsKey : Any]?) -&gt; Bool:AppDelegate.swift">
+      </ContextState>
+      <ContextState
+         contextName = "UsersAPI.(recentMedia(userID : String, maxID : String) -&gt; ()).(closure #1):InstagramAPI.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Meta.mapping(map : Map) -&gt; ():InstagramResponce.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "map[&quot;code&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Map.value&lt;A where ...&gt; (String, nested : Bool?, delimiter : String, using : A, file : StaticString, function : StaticString, line : UInt) throws -&gt; A.Object:ImmutableMappable.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "value">
+            </PersistentString>
+            <PersistentString
+               value = "Transform.Object">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Map.value&lt;A&gt; (String, nested : Bool?, delimiter : String, file : StaticString, function : StaticString, line : UInt) throws -&gt; A:ImmutableMappable.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "T.self">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Map.currentValue(for : String, nested : Bool?, delimiter : String) -&gt; Any?:ImmutableMappable.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self[key, nested: isNested, delimiter: delimiter].currentValue as! String">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

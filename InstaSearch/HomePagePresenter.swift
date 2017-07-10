@@ -7,31 +7,56 @@
 //
 
 import Foundation
+import RealmSwift
+
 protocol HomePagePresenter {
- 
+    
+    var items: [Media]{get}
     func viewDidLoad()
     func willDisplayFooter()
     func refreshControlPulled()
-    func addToBookmarksButtonPressed(media: Media)
-    
+    func bookmarksButtonPressed(media: Media)
+
 }
 
 class HomePagePresenterImpl: HomePagePresenter {
-
+    
+    var items = [Media]()
+    
     weak var view: HomePageView?;
+    
     var instagramAPI: InstagramAPIInteractor
-    var databaseInteractor: DatabaseInteractor
 
+    var databaseInteractor: DatabaseInteractor
+    var token: NotificationToken?
+    
     var state: PaginationState = .start
     
     required init(view: HomePageView, instagramAPI: InstagramAPIInteractor, databaseInteractor: DatabaseInteractor) {
-        self.view = view
         self.instagramAPI = instagramAPI
         self.databaseInteractor = databaseInteractor
+        
+        self.view = view
     }
 
     func viewDidLoad() {
-        
+        token = databaseInteractor.list().addNotificationBlock {change in
+            switch change {
+            case let .update(collection, deletions: _, insertions: insertions, modifications: modifications):
+                
+                var m = [Int]()
+                modifications.forEach {
+                    if let index = self.items.index(of: collection[$0]) {
+                        m.append(index)
+                    }
+                }
+                
+                self.view?.performUpdates(deletions: [], insertions: [], modifications: m)
+                
+            default:
+                break
+            }
+        }
     }
     
     func willDisplayFooter() {
@@ -45,8 +70,14 @@ class HomePagePresenterImpl: HomePagePresenter {
                     self.state = .end
                     self.view?.setFooterVisibility(value: false)
                 }
-                responce.data!.forEach {m in self.setSavedProrerty(media: m)}
-                self.view?.add(items: responce.data!)
+                let newItems = responce.data!
+                self.syncWithDB(media: newItems)
+                
+                let begin = self.items.count
+                self.items.append(contentsOf: newItems)
+                let end = self.items.count - 1
+                let insertions = (begin...end).map{$0}
+                self.view?.performUpdates(deletions: [], insertions: insertions, modifications: [])
             }
         }
         
@@ -63,13 +94,6 @@ class HomePagePresenterImpl: HomePagePresenter {
         
     }
     
-    private func setSavedProrerty(media: Media) {
-        let item = databaseInteractor.object(id: media.id)
-        if let _ = item {
-            media.saved = true
-        }
-    }
-    
     func refreshControlPulled() {
     
         let handler: (InstagramResponce<Media>) -> () = {responce in
@@ -82,8 +106,11 @@ class HomePagePresenterImpl: HomePagePresenter {
                     self.view?.setFooterVisibility(value: false)
                 }
                 self.view?.hideRefreshControl()
-                responce.data!.forEach {m in self.setSavedProrerty(media: m)}
-                self.view?.set(items: responce.data!)
+                
+                let newItems = responce.data!
+                self.syncWithDB(media: newItems)
+                self.items = newItems
+                self.view?.reloadData()
             }
         }
         
@@ -97,6 +124,15 @@ class HomePagePresenterImpl: HomePagePresenter {
     
     }
 
+    private func syncWithDB(media: [Media]) {
+        for i in 0..<media.count{
+            if let item = self.databaseInteractor.object(id: media[i].id) {
+                databaseInteractor.set(media: media[i], bookmarks: item.bookmarks)
+                self.databaseInteractor.save(media: media[i])
+            }
+        }
+    }
+    
     enum PaginationState {
         
         case start
@@ -107,15 +143,17 @@ class HomePagePresenterImpl: HomePagePresenter {
         
     }
     
-    func addToBookmarksButtonPressed(media: Media) {
-        do {
-            try databaseInteractor.save(media: media)
-        } catch {
-            return
+    func bookmarksButtonPressed(media: Media) {
+        if let _ = databaseInteractor.object(id: media.id) {
+            databaseInteractor.set(media: media, bookmarks: !media.bookmarks)
+        } else {
+            media.bookmarks = true
+            databaseInteractor.save(media: media)
         }
-        
-        media.saved = true;
-        view?.update(item: media)
+    }
+    
+    deinit {
+        token?.stop()
     }
 
 }

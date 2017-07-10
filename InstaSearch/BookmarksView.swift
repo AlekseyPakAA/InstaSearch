@@ -7,10 +7,13 @@
 //
 
 import Foundation
+
 protocol BookmarksView: class {
     
-    //func add(items: [Media])
-    func add(item: Media)
-    func set(items: [Media])
+    func insert(index: Int)
+    func remove(index: Int)
+    func reload(index: Int)
+    func performUpdates(deletions: [Int], insertions: [Int], modifications: [Int])
+    func reloadData()
     
 }

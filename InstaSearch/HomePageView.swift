@@ -10,9 +10,11 @@ import Foundation
 
 protocol HomePageView: class {
 
-    func add(items: [Media])
-    func set(items: [Media])
-    func update(item: Media)
+    func insert(index: Int)
+    func remove(index: Int)
+    func reload(index: Int)
+    func performUpdates(deletions: [Int], insertions: [Int], modifications: [Int])
+    func reloadData()
     
     func hideRefreshControl()
     func setFooterVisibility(value: Bool)

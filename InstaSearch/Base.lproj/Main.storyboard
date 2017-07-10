@@ -120,11 +120,29 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="7Ek-VG-eMb">
                             <size key="itemSize" width="50" height="50"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="headerReferenceSize" width="50" height="50"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells/>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="UICollectionReusableViewHeader" id="JDA-ie-M01" customClass="BookmarksHeader" customModule="InstaSearch" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N9f-RF-bGj">
+                                    <rect key="frame" x="111" y="10" width="152" height="30"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <state key="normal" title="CLEAR BOOKMARKS"/>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="N9f-RF-bGj" firstAttribute="centerY" secondItem="JDA-ie-M01" secondAttribute="centerY" id="4xW-Cl-ES7"/>
+                                <constraint firstItem="N9f-RF-bGj" firstAttribute="centerX" secondItem="JDA-ie-M01" secondAttribute="centerX" id="EnK-dg-gYK"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="clearBtn" destination="N9f-RF-bGj" id="cIv-Vi-shm"/>
+                            </connections>
+                        </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="OYt-TM-W5u" id="HLR-JU-HTx"/>
                             <outlet property="delegate" destination="OYt-TM-W5u" id="faW-M0-FuD"/>

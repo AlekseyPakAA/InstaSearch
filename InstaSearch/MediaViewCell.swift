@@ -38,7 +38,6 @@ class MediaViewCell: UICollectionViewCell {
     @IBOutlet var publicDate: UILabel!
  
     func setup(media: Media)  {
-    
         nickname.text = media.user?.username
         
         let profilePictureURL = URL(string: media.user!.profilePicture)
@@ -59,14 +58,6 @@ class MediaViewCell: UICollectionViewCell {
         let date = Date(timeIntervalSince1970: TimeInterval(atof(media.createdTime)))
         
         publicDate.text = dateFormatter.string(from: date).uppercased()
-        
-    
-        if media.saved {
-            bookmarkBtn.setImage(#imageLiteral(resourceName: "bookmarks_btn_hl"), for: .normal)
-        } else {
-            bookmarkBtn.setImage(#imageLiteral(resourceName: "bookmarks_btn"), for: .normal)
-        }
-
     }
     
 }

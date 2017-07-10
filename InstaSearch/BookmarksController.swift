@@ -14,7 +14,6 @@ class BookmarksController: UICollectionViewController {
     var cellSize = CGSize()
     var insets = UIEdgeInsets()
     
-    var items = [Media]()
     var presenter: BookmarksPresenter!
 
     let dateFormatter: DateFormatter = {
@@ -35,27 +34,26 @@ class BookmarksController: UICollectionViewController {
         let nib = UINib(nibName: "MediaViewCell", bundle: nil)
         collectionView?.register(nib, forCellWithReuseIdentifier: "MediaViewCell")
         
-        let size = collectionView!.frame.size
+        let size = view.frame.size
         calcCellSize(height: size.height, width: size.width)
         
         presenter.viewDidLoad()
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.count
+        return presenter.items.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MediaViewCell", for: indexPath) as! MediaViewCell
       
-        let media = items[indexPath.row]
+        let media = presenter.items[indexPath.row]
         
         cell.setup(media: media)
-        
+
         return cell
     }
     
-
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
@@ -77,21 +75,54 @@ class BookmarksController: UICollectionViewController {
         cellSize.height = 50 + cellSize.width + 12 + 24 + 12 + 12 + 12
     }
     
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "UICollectionReusableViewHeader", for: indexPath) as! BookmarksHeader
+        headerView.clearBtn.addTarget(self, action: #selector(clearButtonPressed(sender:)), for: UIControlEvents.touchDown)
+        return headerView
+    }
+    
+    func clearButtonPressed(sender: UIButton) {
+        presenter.clearButtonPressed()
+    }
+    
 }
 
 extension BookmarksController: BookmarksView {
     
-    func set(items: [Media]) {
-        self.items = items
+    func reloadData() {
         collectionView?.reloadData()
     }
     
-    func add(item: Media) {
-        items.append(item)
-        collectionView?.insertItems(at: [IndexPath(row: items.count - 1, section: 0)])
+    func insert(index: Int) {
+        collectionView?.insertItems(at: [IndexPath(row: index, section: 0)])
     }
     
+    func reload(index: Int) {
+        collectionView?.reloadItems(at: [IndexPath(row: index, section: 0)])
+    }
+    
+    func remove(index: Int) {
+        collectionView?.deleteItems(at: [IndexPath(row: index, section: 0)])
+    }
+    
+    func performUpdates(deletions: [Int], insertions: [Int], modifications: [Int]) {
+        collectionView?.performBatchUpdates({
+            deletions.forEach { index in
+                self.collectionView?.deleteItems(at: [IndexPath(row: index, section: 0)])
+            }
+            
+            insertions.forEach{ index in
+                self.collectionView?.insertItems(at: [IndexPath(row: index, section: 0)])
+            }
+            
+            
+            modifications.forEach { index in
+                self.collectionView?.reloadItems(at: [IndexPath(row: index, section: 0)])
+            }
 
+        }, completion: nil)
+    }
+    
 }
 
 
@@ -114,3 +145,5 @@ extension BookmarksController: UICollectionViewDelegateFlowLayout {
     }
     
 }
+
+

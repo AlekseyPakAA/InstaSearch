@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,8 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     var instagramAPI = InstagramAPIInteractor()
-    var databaseInteractor =  DatabaseInteractor()
+    var databaseInteractor: DatabaseInteractor!
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        //try? FileManager.default.removeItem(at: Realm.Configuration.defaultConfiguration.fileURL!)
+        databaseInteractor =  DatabaseInteractor()
         Alamofire.SessionManager.default.adapter = AccessTokenRequestAdapter()
         
         let rootController = window?.rootViewController as? UITabBarController

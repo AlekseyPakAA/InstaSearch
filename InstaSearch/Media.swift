@@ -15,7 +15,7 @@ class Media:Object, Mappable {
     dynamic var likes: Likes?
     dynamic var comments: Comments?
     
-    var saved: Bool = false
+    dynamic var bookmarks: Bool = false
     
     convenience required init?(map: Map) {
         self.init()
@@ -32,10 +32,6 @@ class Media:Object, Mappable {
     
     override static func primaryKey() -> String? {
         return "id"
-    }
-    
-    override static func ignoredProperties() -> [String] {
-        return ["saved"]
     }
     
 }

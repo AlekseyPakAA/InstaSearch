@@ -14,7 +14,6 @@ class HomePageController: UIViewController {
     var cellSize = CGSize()
     var insets = UIEdgeInsets()
     
-    var items = [Media]()
     var presenter: HomePagePresenter!;
 
     @IBOutlet var collectionView: UICollectionView!
@@ -33,17 +32,19 @@ class HomePageController: UIViewController {
  
         let size = view.frame.size
         calcCellSize(height: size.height, width: size.width)
+        
+        presenter.viewDidLoad()
     }
     
     func refreshControlPulled(sender: UIRefreshControl) {
         presenter.refreshControlPulled()
     }
     
-    func addToBookmarksButtonPressed(sender: UIButton) {
+    func bookmarksButtonPressed(sender: UIButton) {
         let globalPoint = sender.convert(CGPoint.zero, to: collectionView)
         if let indexPath = collectionView.indexPathForItem(at: globalPoint) {
-            presenter.addToBookmarksButtonPressed(media: items[indexPath.row])
-        }
+            presenter.bookmarksButtonPressed(media: presenter.items[indexPath.row])
+        } 
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -72,20 +73,38 @@ class HomePageController: UIViewController {
 
 extension HomePageController: HomePageView {
     
-    func add(items: [Media]) {
-        let start = self.items.count;
-        let end   = start + items.count - 1
-        let paths = IndexPath.indexPaths(section: 0, start: start, end: end)
-        
-        self.items.append(contentsOf: items)
-        
-        collectionView.insertItems(at: paths)
+    func reloadData() {
+        collectionView?.reloadData()
     }
     
-    func set(items: [Media]) {
-        self.items.removeAll()
-        self.items.append(contentsOf: items)
-        collectionView.reloadData()
+    func insert(index: Int) {
+        collectionView?.insertItems(at: [IndexPath(row: index, section: 0)])
+    }
+    
+    func reload(index: Int) {
+        collectionView?.reloadItems(at: [IndexPath(row: index, section: 0)])
+    }
+    
+    func remove(index: Int) {
+        collectionView?.deleteItems(at: [IndexPath(row: index, section: 0)])
+    }
+    
+    func performUpdates(deletions: [Int], insertions: [Int], modifications: [Int]) {
+        collectionView?.performBatchUpdates({
+            deletions.forEach { index in
+                self.collectionView?.deleteItems(at: [IndexPath(row: index, section: 0)])
+            }
+            
+            insertions.forEach{ index in
+                self.collectionView?.insertItems(at: [IndexPath(row: index, section: 0)])
+            }
+            
+            
+            modifications.forEach { index in
+                self.collectionView?.reloadItems(at: [IndexPath(row: index, section: 0)])
+            }
+            
+        }, completion: nil)
     }
     
     func hideRefreshControl() {
@@ -96,28 +115,29 @@ extension HomePageController: HomePageView {
         footerIsVisible = value
     }
     
-    func update(item: Media) {
-        if let row = items.index(of: item) {
-            collectionView.reloadItems(at: [IndexPath(row: row, section: 0)])
-        }
-    }
-    
 }
 extension HomePageController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.count
+        return presenter.items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MediaViewCell", for: indexPath) as! MediaViewCell
 
-        let media = items[indexPath.row]
+        let media = presenter.items[indexPath.row]
         
         cell.setup(media: media)
         
-        cell.bookmarkBtn.addTarget(self, action: #selector(addToBookmarksButtonPressed(sender:)), for: UIControlEvents.touchDown)
+        cell.bookmarkBtn.addTarget(self, action: #selector(bookmarksButtonPressed(sender:)), for: UIControlEvents.touchDown)
       
+        
+        if media.bookmarks {
+            cell.bookmarkBtn.setImage(#imageLiteral(resourceName: "bookmarks_btn_hl"), for: .normal)
+        } else {
+            cell.bookmarkBtn.setImage(#imageLiteral(resourceName: "bookmarks_btn"), for: .normal)
+        }
+        
         return cell
     }
     
@@ -131,11 +151,12 @@ extension HomePageController: UICollectionViewDataSource {
 extension HomePageController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) { 
-        view.isHidden = !footerIsVisible
         
-        if view.reuseIdentifier == "UICollectionReusableViewFooter" {
-            presenter.willDisplayFooter()
-        }
+          view.isHidden = !footerIsVisible
+        
+            if view.reuseIdentifier == "UICollectionReusableViewFooter" {
+                presenter.willDisplayFooter()
+            }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {

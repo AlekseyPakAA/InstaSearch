@@ -11,8 +11,9 @@ import RealmSwift
 
 protocol BookmarksPresenter {
 
+    var items: Results<Media>{get}
     func viewDidLoad()
-
+    func clearButtonPressed()
 }
 
 class BookmarksPresenterImpl: BookmarksPresenter {
@@ -21,35 +22,39 @@ class BookmarksPresenterImpl: BookmarksPresenter {
   
     var databaseInteractor: DatabaseInteractor
   
-    var notificationToken: NotificationToken?
+    var items: Results<Media>
+    var token: NotificationToken?
     
     required init(view: BookmarksView, databaseInteractor: DatabaseInteractor) {
         self.view = view
         self.databaseInteractor = databaseInteractor
+        
+        self.items = databaseInteractor.list().filter("bookmarks = true")
     }
     
     func viewDidLoad() {
-        let result = databaseInteractor.list()
         
-        notificationToken = result.addNotificationBlock {c in
+        token = items.addNotificationBlock {c in
+
             switch c {
-            case let .update(items, deletions: _, insertions: insertions, modifications: _):
                 
-                insertions.forEach{ i in
-                    let m = items[i]
-                    m.saved = true
-                    self.view?.add(item: m)
-                }
+            case let .update(_, deletions: deletions, insertions: insertions, modifications: modifications):
+                
+                self.view?.performUpdates(deletions: deletions, insertions: insertions, modifications: modifications)
+                
+            case .initial:
+                
+                self.view?.reloadData()
                 
             default:
                 break
             }
         }
-
-        let media = Array(result)
-        media.forEach {m in m.saved = true}
-        
-        view?.set(items: media)
+    }
+    
+    func clearButtonPressed() {
+        let i = Array(items)
+        databaseInteractor.set(media: i, bookmarks: false)
     }
     
 }

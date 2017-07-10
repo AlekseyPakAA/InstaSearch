@@ -105,19 +105,18 @@
                                     <constraint firstAttribute="width" constant="24" id="gvH-Ih-rAV"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6vM-dj-qsj">
-                                <rect key="frame" x="319" y="12" width="44" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6vM-dj-qsj">
+                                <rect key="frame" x="311" y="6" width="58" height="58"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="44" id="8bJ-XU-ULe"/>
-                                    <constraint firstAttribute="height" constant="44" id="tZr-tX-tOd"/>
+                                    <constraint firstAttribute="width" constant="58" id="8bJ-XU-ULe"/>
+                                    <constraint firstAttribute="height" constant="58" id="tZr-tX-tOd"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="bookmarks_btn"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="19P-7F-XyX" firstAttribute="leading" secondItem="xFY-yc-4jQ" secondAttribute="trailing" constant="6" id="5zS-qu-AFx"/>
-                            <constraint firstItem="6vM-dj-qsj" firstAttribute="top" secondItem="Bz1-Al-xzJ" secondAttribute="top" constant="12" id="6ZE-x1-Zoc"/>
+                            <constraint firstItem="6vM-dj-qsj" firstAttribute="top" secondItem="Bz1-Al-xzJ" secondAttribute="top" constant="6" id="6ZE-x1-Zoc"/>
                             <constraint firstItem="hha-Sn-Uew" firstAttribute="leading" secondItem="Bz1-Al-xzJ" secondAttribute="leading" constant="15" id="9Q9-M6-g0Y"/>
                             <constraint firstItem="19P-7F-XyX" firstAttribute="top" secondItem="Bz1-Al-xzJ" secondAttribute="top" constant="15" id="CQY-Ic-dAF"/>
                             <constraint firstItem="Y0R-Pi-hJb" firstAttribute="top" secondItem="Bz1-Al-xzJ" secondAttribute="top" constant="15" id="EsA-QX-wvi"/>
@@ -125,7 +124,7 @@
                             <constraint firstItem="hha-Sn-Uew" firstAttribute="top" secondItem="z0k-RB-xRf" secondAttribute="bottom" constant="12" id="V0y-J8-TiR"/>
                             <constraint firstItem="Y0R-Pi-hJb" firstAttribute="leading" secondItem="z0k-RB-xRf" secondAttribute="trailing" constant="6" id="cff-bo-1SR"/>
                             <constraint firstItem="xFY-yc-4jQ" firstAttribute="leading" secondItem="Y0R-Pi-hJb" secondAttribute="trailing" constant="10" id="gUt-Pw-HnF"/>
-                            <constraint firstAttribute="trailing" secondItem="6vM-dj-qsj" secondAttribute="trailing" constant="12" id="gjR-mm-gLb"/>
+                            <constraint firstAttribute="trailing" secondItem="6vM-dj-qsj" secondAttribute="trailing" constant="6" id="gjR-mm-gLb"/>
                             <constraint firstItem="z0k-RB-xRf" firstAttribute="leading" secondItem="Bz1-Al-xzJ" secondAttribute="leading" constant="12" id="lVK-Wf-jyQ"/>
                             <constraint firstItem="z0k-RB-xRf" firstAttribute="top" secondItem="Bz1-Al-xzJ" secondAttribute="top" constant="12" id="rLc-uc-mzA"/>
                         </constraints>
@@ -166,7 +165,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="bookmarks_btn" width="17" height="22"/>
         <image name="comment_btn" width="23" height="23"/>
         <image name="like_btn" width="25" height="22"/>
     </resources>

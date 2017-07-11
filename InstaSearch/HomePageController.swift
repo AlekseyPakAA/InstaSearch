@@ -132,7 +132,7 @@ extension HomePageController: UICollectionViewDataSource {
         cell.bookmarkBtn.addTarget(self, action: #selector(bookmarksButtonPressed(sender:)), for: UIControlEvents.touchDown)
       
         
-        if media.bookmarks {
+        if presenter.IsItInBookmarks(media: media) {
             cell.bookmarkBtn.setImage(#imageLiteral(resourceName: "bookmarks_btn_hl"), for: .normal)
         } else {
             cell.bookmarkBtn.setImage(#imageLiteral(resourceName: "bookmarks_btn"), for: .normal)

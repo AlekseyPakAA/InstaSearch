@@ -16,7 +16,7 @@ protocol HomePagePresenter {
     func willDisplayFooter()
     func refreshControlPulled()
     func bookmarksButtonPressed(media: Media)
-
+    func IsItInBookmarks(media: Media) -> Bool
 }
 
 class HomePagePresenterImpl: HomePagePresenter {
@@ -26,11 +26,12 @@ class HomePagePresenterImpl: HomePagePresenter {
     weak var view: HomePageView?;
     
     var instagramAPI: InstagramAPIInteractor
+    var state: PaginationState = .start
 
+    
     var databaseInteractor: DatabaseInteractor
     var token: NotificationToken?
-    
-    var state: PaginationState = .start
+    var previousCollectionIds:[String]!
     
     required init(view: HomePageView, instagramAPI: InstagramAPIInteractor, databaseInteractor: DatabaseInteractor) {
         self.instagramAPI = instagramAPI
@@ -40,23 +41,47 @@ class HomePagePresenterImpl: HomePagePresenter {
     }
 
     func viewDidLoad() {
-        token = databaseInteractor.list().addNotificationBlock {change in
+        
+        token = databaseInteractor.list().addNotificationBlock { change in
             switch change {
-            case let .update(collection, deletions: _, insertions: insertions, modifications: modifications):
-                
-                var m = [Int]()
-                modifications.forEach {
-                    if let index = self.items.index(of: collection[$0]) {
-                        m.append(index)
+            case let .initial(collection):
+               
+                self.previousCollectionIds = collection.map {$0.id}
+            
+            case let .update(collection, deletions: d, insertions: i, modifications: _):
+               
+                var deletedFromBookmarks = [Int]()
+                d.forEach {i in
+                    let id = self.previousCollectionIds[i]
+                    let index = self.items.index { id == $0.id }
+                    if let index = index {
+                        deletedFromBookmarks.append(index)
                     }
                 }
                 
-                self.view?.performUpdates(deletions: [], insertions: [], modifications: m)
+                var insertedToBookmarks = [Int]()
+                i.forEach {i in
+                    let id = collection[i].id
+                    let index = self.items.index { id == $0.id }
+                    if let index = index {
+                        insertedToBookmarks.append(index)
+                    }
+                }
+            
+                var modifications = [Int]()
+                modifications.append(contentsOf: deletedFromBookmarks)
+                modifications.append(contentsOf: insertedToBookmarks)
                 
-            default:
+                self.view?.performUpdates(deletions: [], insertions: [], modifications: modifications)
+                
+                self.previousCollectionIds = collection.map {$0.id}
+                
+            case .error:
                 break
+            
             }
         }
+        
     }
     
     func willDisplayFooter() {
@@ -71,7 +96,6 @@ class HomePagePresenterImpl: HomePagePresenter {
                     self.view?.setFooterVisibility(value: false)
                 }
                 let newItems = responce.data!
-                self.syncWithDB(media: newItems)
                 
                 let begin = self.items.count
                 self.items.append(contentsOf: newItems)
@@ -108,7 +132,6 @@ class HomePagePresenterImpl: HomePagePresenter {
                 self.view?.hideRefreshControl()
                 
                 let newItems = responce.data!
-                self.syncWithDB(media: newItems)
                 self.items = newItems
                 self.view?.reloadData()
             }
@@ -123,15 +146,6 @@ class HomePagePresenterImpl: HomePagePresenter {
         }
     
     }
-
-    private func syncWithDB(media: [Media]) {
-        for i in 0..<media.count{
-            if let item = self.databaseInteractor.object(id: media[i].id) {
-                databaseInteractor.set(media: media[i], bookmarks: item.bookmarks)
-                self.databaseInteractor.save(media: media[i])
-            }
-        }
-    }
     
     enum PaginationState {
         
@@ -144,13 +158,17 @@ class HomePagePresenterImpl: HomePagePresenter {
     }
     
     func bookmarksButtonPressed(media: Media) {
-        if let _ = databaseInteractor.object(id: media.id) {
-            databaseInteractor.set(media: media, bookmarks: !media.bookmarks)
+        if IsItInBookmarks(media: media) {
+            try? databaseInteractor.delete(id: media.id)
         } else {
-            media.bookmarks = true
-            databaseInteractor.save(media: media)
+            try? databaseInteractor.save(copyof: media)
         }
     }
+    
+    func IsItInBookmarks(media: Media) -> Bool {
+        return databaseInteractor.exists(mediaWith: media.id)
+    }
+
     
     deinit {
         token?.stop()

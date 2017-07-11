@@ -17,10 +17,6 @@
 		8491F7861F0D94D000C35AE4 /* DatabaseInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8491F7851F0D94D000C35AE4 /* DatabaseInteractor.swift */; };
 		84A836C81F0C159000AF697C /* Meta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A836C71F0C159000AF697C /* Meta.swift */; };
 		84A836CA1F0C15C800AF697C /* Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A836C91F0C15C800AF697C /* Pagination.swift */; };
-		84A836CC1F0C16AE00AF697C /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A836CB1F0C16AE00AF697C /* Image.swift */; };
-		84A836CE1F0C16D900AF697C /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A836CD1F0C16D900AF697C /* Images.swift */; };
-		84A836D01F0C16E900AF697C /* Likes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A836CF1F0C16E900AF697C /* Likes.swift */; };
-		84A836D21F0C16F500AF697C /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A836D11F0C16F500AF697C /* Comments.swift */; };
 		84CC46691F07CCA400E84695 /* RequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CC46681F07CCA400E84695 /* RequestAdapter.swift */; };
 		84CC466D1F07D0AA00E84695 /* HomePagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CC466C1F07D0AA00E84695 /* HomePagePresenter.swift */; };
 		84CC466F1F07D45900E84695 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CC466E1F07D45900E84695 /* HomePageView.swift */; };
@@ -50,10 +46,6 @@
 		8491F7851F0D94D000C35AE4 /* DatabaseInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseInteractor.swift; sourceTree = "<group>"; };
 		84A836C71F0C159000AF697C /* Meta.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meta.swift; sourceTree = "<group>"; };
 		84A836C91F0C15C800AF697C /* Pagination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pagination.swift; sourceTree = "<group>"; };
-		84A836CB1F0C16AE00AF697C /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
-		84A836CD1F0C16D900AF697C /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
-		84A836CF1F0C16E900AF697C /* Likes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Likes.swift; sourceTree = "<group>"; };
-		84A836D11F0C16F500AF697C /* Comments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
 		84CC46681F07CCA400E84695 /* RequestAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestAdapter.swift; sourceTree = "<group>"; };
 		84CC466C1F07D0AA00E84695 /* HomePagePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePagePresenter.swift; sourceTree = "<group>"; };
 		84CC466E1F07D45900E84695 /* HomePageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
@@ -92,32 +84,18 @@
 				84A836C71F0C159000AF697C /* Meta.swift */,
 				843DBA761F07A94D00CB2CFD /* Media.swift */,
 				843DBA781F07B23A00CB2CFD /* User.swift */,
-				84A836CD1F0C16D900AF697C /* Images.swift */,
-				84A836CB1F0C16AE00AF697C /* Image.swift */,
-				84A836CF1F0C16E900AF697C /* Likes.swift */,
-				84A836D11F0C16F500AF697C /* Comments.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
 		};
-		84CC466B1F07CEED00E84695 /* Other */ = {
+		84CC466B1F07CEED00E84695 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				84DF89D21F04468B00EE49E3 /* UIViewExtension.swift */,
 				84CC46681F07CCA400E84695 /* RequestAdapter.swift */,
 				84D6EF2F1F0910F800E513C0 /* IndexPathExtension.swift */,
 			);
-			name = Other;
-			sourceTree = "<group>";
-		};
-		84D6EF311F09224200E513C0 /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				84D6EF321F0922DC00E513C0 /* MediaViewCell.swift */,
-				8491F7811F0D6B1E00C35AE4 /* MediaViewCell.xib */,
-				84E147101F12E47000461D09 /* BookmarksHeader.swift */,
-			);
-			name = UI;
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		84DF89AC1F02DB7800EE49E3 = {
@@ -141,24 +119,146 @@
 		84DF89B71F02DB7800EE49E3 /* InstaSearch */ = {
 			isa = PBXGroup;
 			children = (
-				84DF89BC1F02DB7900EE49E3 /* Main.storyboard */,
-				84DF89BF1F02DB7900EE49E3 /* Assets.xcassets */,
-				8491F77D1F0C673B00C35AE4 /* BookmarksController.swift */,
-				8491F77F1F0C6A1200C35AE4 /* BookmarksPresenter.swift */,
-				8491F7831F0D828000C35AE4 /* BookmarksView.swift */,
-				8491F7851F0D94D000C35AE4 /* DatabaseInteractor.swift */,
-				84CC46701F07F5FD00E84695 /* InstagramAPIInteractor.swift */,
-				84DF89CC1F02E15500EE49E3 /* HomePageController.swift */,
-				84CC466C1F07D0AA00E84695 /* HomePagePresenter.swift */,
-				84CC466E1F07D45900E84695 /* HomePageView.swift */,
-				84D6EF311F09224200E513C0 /* UI */,
-				84CC466A1F07CEBF00E84695 /* Entities */,
-				84CC466B1F07CEED00E84695 /* Other */,
-				84DF89B81F02DB7900EE49E3 /* AppDelegate.swift */,
-				84DF89C41F02DB7900EE49E3 /* Info.plist */,
-				84DF89C11F02DB7900EE49E3 /* LaunchScreen.storyboard */,
+				84E147121F14549100461D09 /* Application */,
+				84E147131F1454BC00461D09 /* Storyboards */,
+				84E147201F14585400461D09 /* Components */,
+				84CC466B1F07CEED00E84695 /* Helpers */,
+				84E147141F14550600461D09 /* Resources */,
+				84E147151F1455DA00461D09 /* SupportFiles */,
 			);
 			path = InstaSearch;
+			sourceTree = "<group>";
+		};
+		84E147121F14549100461D09 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				84DF89B81F02DB7900EE49E3 /* AppDelegate.swift */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		84E147131F1454BC00461D09 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				84DF89C11F02DB7900EE49E3 /* LaunchScreen.storyboard */,
+				84DF89BC1F02DB7900EE49E3 /* Main.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		84E147141F14550600461D09 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				84DF89BF1F02DB7900EE49E3 /* Assets.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		84E147151F1455DA00461D09 /* SupportFiles */ = {
+			isa = PBXGroup;
+			children = (
+				84DF89C41F02DB7900EE49E3 /* Info.plist */,
+			);
+			name = SupportFiles;
+			sourceTree = "<group>";
+		};
+		84E147161F1455F600461D09 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				84E147191F1456CA00461D09 /* Bookmarks */,
+				84E147181F1456A500461D09 /* Home */,
+				84E147171F14567A00461D09 /* CustomViews  */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		84E147171F14567A00461D09 /* CustomViews  */ = {
+			isa = PBXGroup;
+			children = (
+				84D6EF321F0922DC00E513C0 /* MediaViewCell.swift */,
+				8491F7811F0D6B1E00C35AE4 /* MediaViewCell.xib */,
+				84E147101F12E47000461D09 /* BookmarksHeader.swift */,
+			);
+			name = "CustomViews ";
+			sourceTree = "<group>";
+		};
+		84E147181F1456A500461D09 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				84DF89CC1F02E15500EE49E3 /* HomePageController.swift */,
+				84CC466E1F07D45900E84695 /* HomePageView.swift */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
+		84E147191F1456CA00461D09 /* Bookmarks */ = {
+			isa = PBXGroup;
+			children = (
+				8491F77D1F0C673B00C35AE4 /* BookmarksController.swift */,
+				8491F7831F0D828000C35AE4 /* BookmarksView.swift */,
+			);
+			name = Bookmarks;
+			sourceTree = "<group>";
+		};
+		84E1471A1F14572D00461D09 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				84E1471C1F14575900461D09 /* Bookmarks */,
+				84E1471B1F14574A00461D09 /* Home */,
+			);
+			name = Presenter;
+			sourceTree = "<group>";
+		};
+		84E1471B1F14574A00461D09 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				84CC466C1F07D0AA00E84695 /* HomePagePresenter.swift */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
+		84E1471C1F14575900461D09 /* Bookmarks */ = {
+			isa = PBXGroup;
+			children = (
+				8491F77F1F0C6A1200C35AE4 /* BookmarksPresenter.swift */,
+			);
+			name = Bookmarks;
+			sourceTree = "<group>";
+		};
+		84E1471D1F1457B000461D09 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				84E1471F1F14580300461D09 /* Database */,
+				84E1471E1F1457F000461D09 /* Network */,
+				84CC466A1F07CEBF00E84695 /* Entities */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		84E1471E1F1457F000461D09 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				84CC46701F07F5FD00E84695 /* InstagramAPIInteractor.swift */,
+			);
+			name = Network;
+			sourceTree = "<group>";
+		};
+		84E1471F1F14580300461D09 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				8491F7851F0D94D000C35AE4 /* DatabaseInteractor.swift */,
+			);
+			name = Database;
+			sourceTree = "<group>";
+		};
+		84E147201F14585400461D09 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				84E1471D1F1457B000461D09 /* Model */,
+				84E147161F1455F600461D09 /* View */,
+				84E1471A1F14572D00461D09 /* Presenter */,
+			);
+			name = Components;
 			sourceTree = "<group>";
 		};
 		8B4C980609AD7ED3363D580D /* Frameworks */ = {
@@ -306,11 +406,8 @@
 				84D6EF301F0910F800E513C0 /* IndexPathExtension.swift in Sources */,
 				84A836CA1F0C15C800AF697C /* Pagination.swift in Sources */,
 				84CC466D1F07D0AA00E84695 /* HomePagePresenter.swift in Sources */,
-				84A836D01F0C16E900AF697C /* Likes.swift in Sources */,
 				84CC46711F07F5FD00E84695 /* InstagramAPIInteractor.swift in Sources */,
-				84A836CC1F0C16AE00AF697C /* Image.swift in Sources */,
 				84DF89D31F04468B00EE49E3 /* UIViewExtension.swift in Sources */,
-				84A836D21F0C16F500AF697C /* Comments.swift in Sources */,
 				84DF89B91F02DB7900EE49E3 /* AppDelegate.swift in Sources */,
 				8491F7861F0D94D000C35AE4 /* DatabaseInteractor.swift in Sources */,
 				8491F77E1F0C673B00C35AE4 /* BookmarksController.swift in Sources */,
@@ -322,7 +419,6 @@
 				84E147111F12E47000461D09 /* BookmarksHeader.swift in Sources */,
 				84DF89CD1F02E15500EE49E3 /* HomePageController.swift in Sources */,
 				843DBA751F058CED00CB2CFD /* InstagramResponce.swift in Sources */,
-				84A836CE1F0C16D900AF697C /* Images.swift in Sources */,
 				84CC466F1F07D45900E84695 /* HomePageView.swift in Sources */,
 				8491F7801F0C6A1200C35AE4 /* BookmarksPresenter.swift in Sources */,
 				843DBA771F07A94D00CB2CFD /* Media.swift in Sources */,

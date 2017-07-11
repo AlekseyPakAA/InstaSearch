@@ -43,17 +43,17 @@ class MediaViewCell: UICollectionViewCell {
         let profilePictureURL = URL(string: media.user!.profilePicture)
         avatar.sd_setImage(with: profilePictureURL)
         
-        let imageURL = URL(string: media.images!.standardResolution!.url)
+        let imageURL = URL(string: media.imageURL)
         content.sd_setImage(with: imageURL)
         
-        likesCounter.text = numberFormatter.string(from: media.likes!.count as NSNumber)
-        if media.likes!.count >= 1 {
+        likesCounter.text = numberFormatter.string(from: media.likesCount as NSNumber)
+        if media.likesCount >= 1 {
             likeBtn.image = #imageLiteral(resourceName: "like_btn_hl")
         } else {
             likeBtn.image = #imageLiteral(resourceName: "like_btn")
         }
         
-        commentsCounter.text = numberFormatter.string(from: media.comments!.count as NSNumber)
+        commentsCounter.text = numberFormatter.string(from: media.commentsCount as NSNumber)
         
         let date = Date(timeIntervalSince1970: TimeInterval(atof(media.createdTime)))
         

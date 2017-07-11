@@ -29,7 +29,7 @@ class BookmarksPresenterImpl: BookmarksPresenter {
         self.view = view
         self.databaseInteractor = databaseInteractor
         
-        self.items = databaseInteractor.list().filter("bookmarks = true")
+        self.items = databaseInteractor.list()
     }
     
     func viewDidLoad() {
@@ -53,8 +53,7 @@ class BookmarksPresenterImpl: BookmarksPresenter {
     }
     
     func clearButtonPressed() {
-        let i = Array(items)
-        databaseInteractor.set(media: i, bookmarks: false)
+        try? databaseInteractor.deleteAll()
     }
     
 }
